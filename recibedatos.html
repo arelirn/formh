@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			function getUrlVars() {
+				  var vars = {};
+				  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+				  function(m,key,value) {
+					vars[key] = value;
+				  });
+				  return vars;
+				}
+		
+				var nombre = getUrlVars()["fname"];
+				var apellido= getUrlVars()["lname"];
+				var colorp = getUrlVars()["lcolor"];
+				var tallap= getUrlVars()["ltalla"];
+				var ops=0;
+				var ad1=decodeURIComponent(getUrlVars()["empaque1"]);
+				var ad5=decodeURIComponent(getUrlVars()["empaque2"]);
+				var ad6=decodeURIComponent(getUrlVars()["empaque3"]);
+
+				if(ad1!=undefined ){					
+					ops+=4;
+					if(ad5!=undefined)
+					{
+						ad1+="- "+ad5;
+					}
+					if (ad6!=undefined){
+						ad1+="- "+ad6;
+					}
+				}
+				else{
+					if(ad5!=undefined)
+					{
+						ad1+="- "+ad5;
+					}
+					if (ad6!=undefined){
+						ad1+="- "+ad6;
+					}
+
+				} 
+								
+				var ad2=getUrlVars()["nota"];
+				if(ad2!=undefined) ops+=2;
+				var ad3=getUrlVars()["prueba"];
+				if(ad3!=undefined) ops++;
+				var mensajes="";
+				switch(ops){
+					case 0:
+						mensajes= "Muchas gracias por tu compra";
+						break;
+					case 1: 
+						mensajes= "Te enviaremos muestras gratis\n"+ad3;
+						break;
+					case 2: 
+						mensajes= "Espera nuestras promociones\n"+ad2;
+						break;
+					case 3:
+						mensajes="¡Comparte las muestras y promociones con amigos!\n"+ad3+"\n"+ad2;
+						break;
+					case 4:
+						mensajes="Solicitaste adicionales: \n"+ad1;
+						break;
+					case 5:
+						mensajes= "Solicitaste adicionales "+ad1 +" y promociones\n"+ad3;
+						break;	
+					case 6:
+					mensajes="Adicionales: \n"+ad1+"\n promociones "+ad2;
+						break;
+					case 7:
+						mensajes= "Con todo: \n"+ad1 +"\n"+ad2+"\n"+ad3;
+						break;
+
+				}
+				//alert("chk= " +ops+": "+ ad1+ " - " +ad2 + " - "+ad3);
+				//alert("fname= " + nombre);
+
+		</script>         
+	</head>
+<body>
+
+<h2>Pedido Recibido</h2>
+
+<p>Recibe datos</p>
+
+<h3> Cliente</h3>
+<p id="Nombre">    </p>
+
+<h4>Pedido</h4>
+<p id="detalle">   </p>
+
+<script>
+	document.getElementById("Nombre").innerHTML=nombre+" "+apellido;
+//agreguen las instrucciones para que muestre las información del pedido
+	document.getElementById("detalle").innerHTML= mensajes;
+</script>
+
+
+</body>
+</html>
